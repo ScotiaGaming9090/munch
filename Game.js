@@ -31,14 +31,6 @@
 
     var snakeLiving;
 
-    // Set the position of the target
-    var enemyXPos = 100;
-    var enemyYPos = 100;
-
-    // Set the speed of the target
-    var enemyXSpeed = 1.5;
-    var enemyYSpeed = 1.75;
-
     // Set the score text
     var score = 0;
     var scoreText;
@@ -63,12 +55,13 @@
 
         // startup the ticker
         createjs.Ticker.setFPS(frameRate);
-        createjs.Ticker.addEventListener("tick", gameController.onTick);
+        createjs.Ticker.addEventListener("tick", gameController.onTick.bind(this, stage));
         createjs.Ticker.addEventListener("tick", gameController.tickEvent); // Call the movement
     }
 
     function onSetup() {
         console.log(">> setup");
+        
         // kill event listener
         stage.removeEventListener("onAllAssetsLoaded", onSetup);
 
@@ -103,17 +96,7 @@
 
         gameController.createEnemy();
 
-
         background.addEventListener("click", onStartGame);
-    }
-    
-        
-    function onTick(e) {
-        // TESTING FPS
-        document.getElementById("fps").innerHTML = createjs.Ticker.getMeasuredFPS();
-
-        // update the stage!
-        stage.update();
     }
 
     function onStartGame(e) {
